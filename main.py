@@ -13,9 +13,19 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from openai import AsyncOpenAI
 from passlib.context import CryptContext
+from dotenv import load_dotenv
 from rivescript import RiveScript
 from starlette.middleware.sessions import SessionMiddleware
 
+
+BASE_DIR = Path(__file__).resolve().parent
+load_dotenv(BASE_DIR / ".env")
+
+
+def env_to_bool(value, default=False):
+    if value is None:
+        return default
+    return str(value).strip().lower() in {"true", "1", "yes", "y", "on"}
 
 for proxy_name in ("HTTP_PROXY", "HTTPS_PROXY", "ALL_PROXY", "http_proxy", "https_proxy", "all_proxy"):
     proxy_value = os.getenv(proxy_name, "")
@@ -23,7 +33,6 @@ for proxy_name in ("HTTP_PROXY", "HTTPS_PROXY", "ALL_PROXY", "http_proxy", "http
         os.environ.pop(proxy_name, None)
 
 app = FastAPI()
-BASE_DIR = Path(__file__).resolve().parent
 TMP_DIR = Path(tempfile.gettempdir()) / "rivescript-chatbot-audio"
 CREDENTIALS_FILE = BASE_DIR / "credentials" / "rivescript-json-account.json"
 SPREADSHEET_ID = os.getenv(
@@ -31,6 +40,7 @@ SPREADSHEET_ID = os.getenv(
     "1KlevUWoXXGzq0IE3LHB1OdSa9e06h3PBD-wXec_6t18",
 )
 SESSION_SECRET_KEY = os.getenv("SESSION_SECRET_KEY", "porcalabs-rivescript-dev-secret")
+SESSION_COOKIE_SECURE = env_to_bool(os.getenv("SESSION_COOKIE_SECURE"), default=False)
 OPENAI_TTS_MODEL = os.getenv("OPENAI_TTS_MODEL", "gpt-4o-mini-tts")
 OPENAI_TTS_VOICE = os.getenv("OPENAI_TTS_VOICE", "coral")
 OPENAI_TTS_INSTRUCTIONS = os.getenv(
@@ -44,6 +54,7 @@ app.add_middleware(
     secret_key=SESSION_SECRET_KEY,
     session_cookie="rivescript_session",
     same_site="lax",
+    https_only=SESSION_COOKIE_SECURE,
 )
 app.add_middleware(
     CORSMiddleware,
