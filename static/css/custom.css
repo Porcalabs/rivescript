@@ -659,11 +659,19 @@ body {
 
 .chat-footer-note {
   margin: 10px 4px 0;
-  color: #99a6ba;
   font-size: 0.75rem;
   text-align: center;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+}
+
+.chat-footer-note a {
+  color: #99a6ba;
+  text-decoration: none;
+}
+
+.chat-footer-note a:hover {
+  color: #5f77a5;
 }
 
 .guide-content {
