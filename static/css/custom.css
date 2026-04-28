@@ -1,0 +1,35 @@
+.textarea-wrapper {
+  display: flex;
+  font-family: monospace;
+  border: 1px solid #ccc;
+  /* border-radius: 4px; */
+  height: 377px;
+  overflow: hidden;
+}
+
+.line-numbers {
+  background-color: #f8f9fa;
+  color: #6c757d;
+  padding: 0.5rem 0.75rem;
+  text-align: right;
+  user-select: none;
+  white-space: pre;
+  overflow: hidden;
+}
+
+.code-textarea {
+  border: none;
+  resize: none;
+  outline: none;
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  font-family: monospace;
+  line-height: 1.5rem;
+  overflow: scroll; /* Enable both vertical and horizontal scroll */
+  white-space: pre; /* Prevent line wrapping */
+}
+
+.line-numbers,
+.code-textarea {
+  line-height: 1.5rem;
+}

@@ -1,0 +1,17 @@
+! version = 2.0
+
++ helloy
+- Hello there! How can I help you?
+
++ my name is *
+- Nice to meet you, <star>!
+
++ what is your name
+- I am a simple chatbot created with RiveScript.
+
+
++ halo
+- Hay, ada yang bisa saya bantu...?
+
++ *apa kabar
+- Kabar baik, senang disapa oleh Anda
