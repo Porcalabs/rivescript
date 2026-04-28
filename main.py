@@ -2,23 +2,24 @@ import os
 import tempfile
 import uuid
 
-import edge_tts
 from fastapi import FastAPI, Form, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 from fastapi.responses import FileResponse, HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+from openai import AsyncOpenAI
 from rivescript import RiveScript
 
 app = FastAPI()
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 TMP_DIR = os.path.join(tempfile.gettempdir(), "rivescript-chatbot-audio")
-VOICE_CANDIDATES = [
-    "id-ID-GadisNeural",
-    "id-ID-ArdiNeural",
-    "en-US-JennyNeural",
-    "en-US-AriaNeural",
-]
+OPENAI_TTS_MODEL = os.getenv("OPENAI_TTS_MODEL", "gpt-4o-mini-tts")
+OPENAI_TTS_VOICE = os.getenv("OPENAI_TTS_VOICE", "coral")
+OPENAI_TTS_INSTRUCTIONS = os.getenv(
+    "OPENAI_TTS_INSTRUCTIONS",
+    "Speak clearly in a friendly, helpful tone.",
+)
 
 app.add_middleware(
     CORSMiddleware,
@@ -41,25 +42,32 @@ os.makedirs(TMP_DIR, exist_ok=True)
 
 
 async def generate_audio(reply: str):
+    api_key = os.getenv("OPENAI_API_KEY")
+    if not api_key:
+        return None, "Audio tidak tersedia karena OPENAI_API_KEY belum dikonfigurasi."
+
     audio_filename = f"{uuid.uuid4().hex}.mp3"
     audio_file = os.path.join(TMP_DIR, audio_filename)
-    errors = []
 
-    for voice in VOICE_CANDIDATES:
-        try:
-            communicate = edge_tts.Communicate(reply, voice=voice)
-            await communicate.save(audio_file)
-            return f"/audio/{audio_filename}?nocache={os.urandom(4).hex()}", None
-        except Exception as exc:
-            errors.append(f"{voice}: {exc}")
-            if os.path.exists(audio_file):
-                try:
-                    os.remove(audio_file)
-                except OSError:
-                    pass
-
-    print("Audio generation error:", " | ".join(errors))
-    return None, "Audio tidak tersedia untuk respons ini."
+    try:
+        openai_client = AsyncOpenAI(api_key=api_key)
+        async with openai_client.audio.speech.with_streaming_response.create(
+            model=OPENAI_TTS_MODEL,
+            voice=OPENAI_TTS_VOICE,
+            input=reply,
+            instructions=OPENAI_TTS_INSTRUCTIONS,
+            response_format="mp3",
+        ) as response:
+            await response.stream_to_file(audio_file)
+        return f"/audio/{audio_filename}?nocache={os.urandom(4).hex()}", None
+    except Exception as exc:
+        if os.path.exists(audio_file):
+            try:
+                os.remove(audio_file)
+            except OSError:
+                pass
+        print(f"Audio generation error: {exc}")
+        return None, "Audio gagal dibuat oleh provider TTS."
 
 
 @app.get("/", response_class=HTMLResponse)
@@ -77,9 +85,17 @@ async def get_home(request: Request):
 @app.post("/set-rivescript")
 async def set_rivescript(rivescript: str = Form(...)):
     global bot
-    bot = RiveScript()
-    bot.stream(rivescript)
-    bot.sort_replies()
+    try:
+        new_bot = RiveScript()
+        new_bot.stream(rivescript)
+        new_bot.sort_replies()
+        bot = new_bot
+        return JSONResponse({"ok": True, "message": "Script applied successfully."})
+    except Exception as exc:
+        return JSONResponse(
+            {"ok": False, "message": f"RiveScript error: {exc}"},
+            status_code=400,
+        )
 
 
 @app.post("/chat", response_class=HTMLResponse)

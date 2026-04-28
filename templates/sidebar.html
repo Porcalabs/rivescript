@@ -1,502 +1,226 @@
-<div
-  id="sidebar"
-  class="overflow-y-auto border p-3 bg-body-tertiary rounded"
-  style="height: 810px"
->
-  <div class="accordion accordion-flush" id="accordionFlushExample">
-    <div class="accordion-item">
-      <h2 class="accordion-header">
-        <button
-          class="accordion-button collapsed"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#flush-collapseOne"
-          aria-expanded="false"
-          aria-controls="flush-collapseOne"
-        >
-          Unit 1: Work in the IT Industry
-        </button>
-      </h2>
-      <div
-        id="flush-collapseOne"
-        class="accordion-collapse collapse"
-        data-bs-parent="#accordionFlushExample"
-      >
-        <div class="accordion-body font-monospace">
-          <p>
-            + hello<br />
-            - Hello! I'm Aisyah, nice to meet you.
-          </p>
-          <p>
-            + nice to meet you too my name is * <br />
-            - Nice to meet you, &lt;star&gt;.
-          </p>
-          <p>
-            + what do you do <br />
-            - I am a programmer. What about you?
-          </p>
-          <p>
-            + i am a * <br />
-            - That's interesting! So you are a &lt;star&gt;.
-          </p>
-          <p>
-            + what time does * start <br />
-            - It starts at 9 AM. What about your routine?
-          </p>
-          <p>
-            + my day starts at * <br />
-            - So your day starts at &lt;star&gt;.
-          </p>
-          <p>
-            + what does www stand for <br />
-            - www stands for World Wide Web.
-          </p>
-          <p>
-            + how do you spell * <br />
-            - Could you please spell that for me?
-          </p>
-          <p>
-            + * <br />
-            - I'm sorry, I'm not programmed to handle that yet.
-          </p>
-        </div>
-      </div>
+<div class="sidebar-inner">
+  <div class="sidebar-brand">
+    <div class="brand-icon">
+      <i class="bi bi-book"></i>
     </div>
-    <div class="accordion-item">
-      <h2 class="accordion-header">
-        <button
-          class="accordion-button collapsed"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#flush-collapseTwo"
-          aria-expanded="false"
-          aria-controls="flush-collapseTwo"
-        >
-          Unit 2: Computer Systems
-        </button>
-      </h2>
-      <div
-        id="flush-collapseTwo"
-        class="accordion-collapse collapse"
-        data-bs-parent="#accordionFlushExample"
-      >
-        <div class="accordion-body font-monospace">
-          <p>
-            + what kind of monitor do you have <br />
-            - I have a new monitor. That monitor is bigger than mine.
-          </p>
-          <p>
-            + is your monitor new <br />
-            - Yes, it is. It's much newer than my old one.
-          </p>
-          <p>
-            + what software do you recommend <br />
-            - We've got the best software for graphic design. That software is
-            the easiest to use.
-          </p>
-          <p>
-            + do you have any other recommendations <br />
-            - Yes, we have several options, but that one is usually the most
-            popular.
-          </p>
-          <p>
-            + what are you doing <br />
-            - I am working on a new project. Are you installing it now?
-          </p>
-          <p>
-            + yes i am installing it <br />
-            - Great! Let me know if you need any help with the installation.
-          </p>
-          <p>
-            + i need to update my software <br />
-            - Yes, you must update your software regularly for security.
-          </p>
-          <p>
-            + what else should i do <br />
-            - You can't use outdated software for long. You must keep your
-            system healthy.
-          </p>
-          <p>
-            + * <br />
-            - I'm sorry, I'm not programmed to handle that yet.
-          </p>
-        </div>
-      </div>
+    <div>
+      <h2 class="brand-title">IT Curriculum</h2>
+      <p class="brand-subtitle">Interactive chatbot practice</p>
     </div>
-    <div class="accordion-item">
-      <h2 class="accordion-header">
-        <button
-          class="accordion-button collapsed"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#flush-collapseThree"
-          aria-expanded="false"
-          aria-controls="flush-collapseThree"
-        >
-          Unit 3: Websites
-        </button>
-      </h2>
-      <div
-        id="flush-collapseThree"
-        class="accordion-collapse collapse"
-        data-bs-parent="#accordionFlushExample"
-      >
-        <div class="accordion-body font-monospace">
-          <p>
-            + which websites do you visit <br />
-            - I often visit news websites for information. What about you?
-          </p>
-          <p>
-            + i visit ecommerce sites <br />
-            - E-commerce sites are great for shopping.
-          </p>
-          <p>
-            + how many people visit our website <br />
-            - We had ten thousand visitors last month.
-          </p>
-          <p>
-            + thats a lot of visitors <br />
-            - Yes, it shows good progress.
-          </p>
-          <p>
-            + how do you develop a website <br />
-            - First, we plan the layout. After that, we start coding the
-            features.
-          </p>
-          <p>
-            + what comes after coding <br />
-            - After that, we test the website thoroughly before launching.
-          </p>
-          <p>
-            + whats your favorite website <br />
-            - I like websites with clear designs and useful information. There
-            are a lot of photos on this website, which I like.
-          </p>
-          <p>
-            + why do you like it <br />
-            - It's very user-friendly and aesthetically pleasing.
-          </p>
-          <p>
-            + * <br />
-            - I'm sorry, I'm not programmed to handle that yet.
-          </p>
+  </div>
+
+  <div class="curriculum-list">
+    <details class="curriculum-module" data-module-id="1">
+      <summary class="curriculum-item">
+        <span class="curriculum-index">1</span>
+        <span class="curriculum-label">Work in the IT Industry</span>
+        <i class="bi bi-chevron-right curriculum-chevron"></i>
+      </summary>
+      <div class="curriculum-body">
+        <p class="curriculum-description">Template sapaan dan perkenalan dasar untuk topik industri IT.</p>
+        <pre class="curriculum-template">! version = 2.0
+
++ hello
+- Hello! I'm Aisyah, nice to meet you.
+
++ nice to meet you too my name is *
+- Nice to meet you, &lt;star&gt;.
+
++ what do you do
+- I am a programmer. What about you?
+
++ i am a *
+- That's interesting! So you are a &lt;star&gt;.</pre>
+        <div class="curriculum-actions">
+          <button class="btn curriculum-copy-btn" type="button">Copy</button>
+          <button class="btn curriculum-done-btn" type="button">Done</button>
         </div>
       </div>
+    </details>
+
+    <details class="curriculum-module" data-module-id="2">
+      <summary class="curriculum-item">
+        <span class="curriculum-index">2</span>
+        <span class="curriculum-label">Computer Systems</span>
+        <i class="bi bi-chevron-right curriculum-chevron"></i>
+      </summary>
+      <div class="curriculum-body">
+        <p class="curriculum-description">Template percakapan seputar monitor, software, dan pekerjaan harian.</p>
+        <pre class="curriculum-template">! version = 2.0
+
++ what kind of monitor do you have
+- I have a new monitor. That monitor is bigger than mine.
+
++ is your monitor new
+- Yes, it is. It's much newer than my old one.
+
++ what software do you recommend
+- We've got the best software for graphic design. That software is the easiest to use.</pre>
+        <div class="curriculum-actions">
+          <button class="btn curriculum-copy-btn" type="button">Copy</button>
+          <button class="btn curriculum-done-btn" type="button">Done</button>
+        </div>
+      </div>
+    </details>
+
+    <details class="curriculum-module" data-module-id="3">
+      <summary class="curriculum-item">
+        <span class="curriculum-index">3</span>
+        <span class="curriculum-label">Websites</span>
+        <i class="bi bi-chevron-right curriculum-chevron"></i>
+      </summary>
+      <div class="curriculum-body">
+        <p class="curriculum-description">Template dialog tentang website, visitor, dan tahapan development.</p>
+        <pre class="curriculum-template">! version = 2.0
+
++ which websites do you visit
+- I often visit news websites for information. What about you?
+
++ i visit ecommerce sites
+- E-commerce sites are great for shopping.
+
++ how do you develop a website
+- First, we plan the layout. After that, we start coding the features.</pre>
+        <div class="curriculum-actions">
+          <button class="btn curriculum-copy-btn" type="button">Copy</button>
+          <button class="btn curriculum-done-btn" type="button">Done</button>
+        </div>
+      </div>
+    </details>
+
+    <details class="curriculum-module" data-module-id="4">
+      <summary class="curriculum-item">
+        <span class="curriculum-index">4</span>
+        <span class="curriculum-label">Databases</span>
+        <i class="bi bi-chevron-right curriculum-chevron"></i>
+      </summary>
+      <div class="curriculum-body">
+        <p class="curriculum-description">Template percakapan tentang input data, backup, dan manfaat database.</p>
+        <pre class="curriculum-template">! version = 2.0
+
++ could you help me please
+- Of course, I can help. What do you need assistance with regarding databases?
+
++ i need to enter data
+- Okay, let's get that data entered into the database.
+
++ what should i do to back up my files
+- You should buy a flash drive. It's a simple data storage solution.</pre>
+        <div class="curriculum-actions">
+          <button class="btn curriculum-copy-btn" type="button">Copy</button>
+          <button class="btn curriculum-done-btn" type="button">Done</button>
+        </div>
+      </div>
+    </details>
+
+    <details class="curriculum-module" data-module-id="5">
+      <summary class="curriculum-item">
+        <span class="curriculum-index">5</span>
+        <span class="curriculum-label">E-Commerce</span>
+        <i class="bi bi-chevron-right curriculum-chevron"></i>
+      </summary>
+      <div class="curriculum-body">
+        <p class="curriculum-description">Template untuk alur transaksi online dan keamanan website e-commerce.</p>
+        <pre class="curriculum-template">! version = 2.0
+
++ what are some types of ecommerce companies
+- There are many types, such as business-to-consumer and business-to-business.
+
++ what features does a good ecommerce website have
+- A good e-commerce website has a secure payment gateway and a clear product catalog.
+
++ how does an online transaction work
+- First, the customer adds items to the cart, then proceeds to checkout, and finally makes the payment.</pre>
+        <div class="curriculum-actions">
+          <button class="btn curriculum-copy-btn" type="button">Copy</button>
+          <button class="btn curriculum-done-btn" type="button">Done</button>
+        </div>
+      </div>
+    </details>
+
+    <details class="curriculum-module" data-module-id="6">
+      <summary class="curriculum-item">
+        <span class="curriculum-index">6</span>
+        <span class="curriculum-label">Network Systems</span>
+        <i class="bi bi-chevron-right curriculum-chevron"></i>
+      </summary>
+      <div class="curriculum-body">
+        <p class="curriculum-description">Template tentang jaringan, troubleshooting router, dan spesifikasi network.</p>
+        <pre class="curriculum-template">! version = 2.0
+
++ what kind of network should we use
+- I'd recommend a client-server network because it's more scalable.
+
++ my router is not working
+- Why don't you try restarting it? Sometimes that fixes network hardware problems.
+
++ whats the speed of this network
+- This network has a speed of 1 gigabit per second.</pre>
+        <div class="curriculum-actions">
+          <button class="btn curriculum-copy-btn" type="button">Copy</button>
+          <button class="btn curriculum-done-btn" type="button">Done</button>
+        </div>
+      </div>
+    </details>
+
+    <details class="curriculum-module" data-module-id="7">
+      <summary class="curriculum-item">
+        <span class="curriculum-index">7</span>
+        <span class="curriculum-label">IT Support</span>
+        <i class="bi bi-chevron-right curriculum-chevron"></i>
+      </summary>
+      <div class="curriculum-body">
+        <p class="curriculum-description">Template bantuan teknis, diagnosis perangkat, dan customer service IT.</p>
+        <pre class="curriculum-template">! version = 2.0
+
++ my computer is not turning on
+- Has he/she switched off the computer? That's one of the first fault diagnosis questions.
+
++ the application keeps crashing
+- That's a common issue. Possible solutions include reinstalling the software or checking for updates.
+
++ i have a question about my recent service
+- How can I help you? This is the customer service desk.</pre>
+        <div class="curriculum-actions">
+          <button class="btn curriculum-copy-btn" type="button">Copy</button>
+          <button class="btn curriculum-done-btn" type="button">Done</button>
+        </div>
+      </div>
+    </details>
+
+    <details class="curriculum-module curriculum-module-active" data-module-id="8" open>
+      <summary class="curriculum-item curriculum-item-active">
+        <span class="curriculum-index">8</span>
+        <span class="curriculum-label">IT Security and Safety</span>
+        <i class="bi bi-chevron-right curriculum-chevron"></i>
+      </summary>
+      <div class="curriculum-body">
+        <p class="curriculum-description">Template tentang keamanan IT, password, dan pelaporan insiden.</p>
+        <pre class="curriculum-template">! version = 2.0
+
++ my laptop is acting strange
+- You may have a virus on the laptop. We should run a scan immediately.
+
++ what are the security procedures for passwords
+- You mustn't give your password to anyone. And you should change it regularly.
+
++ i think i found a security vulnerability
+- You should report this security incident immediately. What happened?</pre>
+        <div class="curriculum-actions">
+          <button class="btn curriculum-copy-btn" type="button">Copy</button>
+          <button class="btn curriculum-done-btn" type="button">Done</button>
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <div class="sidebar-progress">
+    <div class="progress-header">
+      <span>Overall Progress</span>
+      <strong id="progress-label">0%</strong>
     </div>
-    <div class="accordion-item">
-      <h2 class="accordion-header">
-        <button
-          class="accordion-button collapsed"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#flush-unit4"
-          aria-expanded="false"
-          aria-controls="flush-unit4"
-        >
-          Unit 4: Databases
-        </button>
-      </h2>
-      <div
-        id="flush-unit4"
-        class="accordion-collapse collapse"
-        data-bs-parent="#accordionFlushExample"
-      >
-        <div class="accordion-body font-monospace">
-          <p>
-            + could you help me please <br />
-            - Of course, I can help. What do you need assistance with regarding
-            databases?
-          </p>
-          <p>
-            + i need to enter data <br />
-            - Okay, let's get that data entered into the database.
-          </p>
-          <p>
-            + how do we process this data <br />
-            - First, we gather the raw data. Then, we clean it. Got that?
-          </p>
-          <p>
-            + got that <br />
-            - Excellent. After cleaning, we organize it into categories.
-          </p>
-          <p>
-            + what should i do to back up my files <br />
-            - You should buy a flash drive. It's a simple data storage solution.
-          </p>
-          <p>
-            + what else should i consider <br />
-            - You should also consider cloud storage for off-site backups.
-          </p>
-          <p>
-            + how do database systems benefit company departments <br />
-            - Database systems help company departments by providing organized
-            data for better decision-making.
-          </p>
-          <p>
-            + can you give an example <br />
-            - Sure. The sales department can use database insights to identify
-            customer trends.
-          </p>
-          <p>
-            + * <br />
-            - I'm sorry, I'm not programmed to handle that yet.
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="accordion-item">
-      <h2 class="accordion-header">
-        <button
-          class="accordion-button collapsed"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#flush-unit5"
-          aria-expanded="false"
-          aria-controls="flush-unit5"
-        >
-          Unit 5: E-Commerce
-        </button>
-      </h2>
-      <div
-        id="flush-unit5"
-        class="accordion-collapse collapse"
-        data-bs-parent="#accordionFlushExample"
-      >
-        <div class="accordion-body font-monospace">
-          <p>
-            + what are some types of ecommerce companies <br />
-            - There are many types, such as business-to-consumer and
-            business-to-business.
-          </p>
-          <p>
-            + how many types are there <br />
-            - There are a few main types, each serving a different kind of
-            business interaction.
-          </p>
-          <p>
-            + what features does a good ecommerce website have <br />
-            - A good e-commerce website has a secure payment gateway and a clear
-            product catalog.
-          </p>
-          <p>
-            + do you have both a pc and a laptop <br />
-            - Yes, I have a PC and laptop at home for work and personal use.
-          </p>
-          <p>
-            + how can we ensure transaction security <br />
-            - We will implement strong encryption and two-factor authentication.
-            Hackers won't be able to get into the network with these measures.
-          </p>
-          <p>
-            + what if hackers try to access the network <br />
-            - If security protocols are followed, hackers won't be able to get
-            into the network.
-          </p>
-          <p>
-            + how does an online transaction work <br />
-            - First, the customer adds items to the cart, then proceeds to
-            checkout, and finally makes the payment.
-          </p>
-          <p>
-            + what happens after payment <br />
-            - After payment, the order is processed, and the goods are prepared
-            for shipping.
-          </p>
-          <p>
-            + * <br />
-            - I'm sorry, I'm not programmed to handle that yet.
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="accordion-item">
-      <h2 class="accordion-header">
-        <button
-          class="accordion-button collapsed"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#flush-unit6"
-          aria-expanded="false"
-          aria-controls="flush-unit6"
-        >
-          Unit 6: Network systems
-        </button>
-      </h2>
-      <div
-        id="flush-unit6"
-        class="accordion-collapse collapse"
-        data-bs-parent="#accordionFlushExample"
-      >
-        <div class="accordion-body font-monospace">
-          <p>
-            + what kind of network should we use <br />
-            - I'd recommend a client-server network because it's more scalable.
-          </p>
-          <p>
-            + why do you recommend that <br />
-            - I'd recommend a Dell computer because it's cheaper, and similarly,
-            this network type is often more efficient for larger organizations.
-          </p>
-          <p>
-            + my router is not working <br />
-            - Why don't you try restarting it? Sometimes that fixes network
-            hardware problems.
-          </p>
-          <p>
-            + its still not working <br />
-            - Why don't you call the IT Help Desk? They can help you with
-            problems with hardware.
-          </p>
-          <p>
-            + when did you launch the network <br />
-            - We launched the network last week.
-          </p>
-          <p>
-            + was it a long time ago <br />
-            - No, it was just last week, not a long time ago.
-          </p>
-          <p>
-            + whats the speed of this network <br />
-            - This network has a speed of 1 gigabit per second.
-          </p>
-          <p>
-            + what about its range <br />
-            - Its range covers the entire office building.
-          </p>
-          <p>
-            + * <br />
-            - I'm sorry, I'm not programmed to handle that yet.
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="accordion-item">
-      <h2 class="accordion-header">
-        <button
-          class="accordion-button collapsed"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#flush-unit7"
-          aria-expanded="false"
-          aria-controls="flush-unit7"
-        >
-          Unit 7: IT support
-        </button>
-      </h2>
-      <div
-        id="flush-unit7"
-        class="accordion-collapse collapse"
-        data-bs-parent="#accordionFlushExample"
-      >
-        <div class="accordion-body font-monospace">
-          <p>
-            + my computer is not turning on <br />
-            - Has he/she switched off the computer? That's one of the first
-            fault diagnosis questions.
-          </p>
-          <p>
-            + yes i have switched it off and on again <br />
-            - Okay. Have you checked the power cable?
-          </p>
-          <p>
-            + i have a problem with my software <br />
-            - Can you describe the issue? We need to fill in a service report.
-          </p>
-          <p>
-            + the application keeps crashing <br />
-            - That's a common issue. Possible solutions include reinstalling the
-            software or checking for updates.
-          </p>
-          <p>
-            + what tools do i need for this repair <br />
-            - For delicate work on computer hardware, we use tweezers to hold
-            small objects.
-          </p>
-          <p>
-            + what about screwdrivers <br />
-            - Yes, you'll need various screwdrivers from your toolkit for
-            opening the case.
-          </p>
-          <p>
-            + i have a question about my recent service <br />
-            - How can I help you? This is the customer service desk.
-          </p>
-          <p>
-            + my repair wasnt completed <br />
-            - Please provide your service ticket number so I can check the
-            details of your repair.
-          </p>
-          <p>
-            + * <br />
-            - I'm sorry, I'm not programmed to handle that yet.
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="accordion-item">
-      <h2 class="accordion-header">
-        <button
-          class="accordion-button collapsed"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#flush-unit8"
-          aria-expanded="false"
-          aria-controls="flush-unit8"
-        >
-          Unit 8: IT security and safety
-        </button>
-      </h2>
-      <div
-        id="flush-unit8"
-        class="accordion-collapse collapse"
-        data-bs-parent="#accordionFlushExample"
-      >
-        <div class="accordion-body font-monospace">
-          <p>
-            + my laptop is acting strange <br />
-            - You may have a virus on the laptop. We should run a scan
-            immediately.
-          </p>
-          <p>
-            + what kind of security systems do you recommend <br />
-            - We recommend robust antivirus software and a firewall as security
-            solutions.
-          </p>
-          <p>
-            + what are the rules for workstation safety <br />
-            - You should adjust your chair to support your back. Also, you
-            mustn't block emergency exits.
-          </p>
-          <p>
-            + what about breaks <br />
-            - You should take regular breaks to prevent eye strain.
-          </p>
-          <p>
-            + what are the security procedures for passwords <br />
-            - You mustn't give your password to anyone. And you should change it
-            regularly.
-          </p>
-          <p>
-            + can i use a simple password <br />
-            - No, you mustn't use a simple password. It should be complex and
-            unique.
-          </p>
-          <p>
-            + i think i found a security vulnerability <br />
-            - You should report this security incident immediately. What
-            happened?
-          </p>
-          <p>
-            + where do i report it <br />
-            - Follow the official reporting process by contacting the IT
-            security department.
-          </p>
-          <p>
-            + * <br />
-            - I'm sorry, I'm not programmed to handle that yet.
-          </p>
-        </div>
-      </div>
+    <div class="progress-track">
+      <div id="progress-value" class="progress-value"></div>
     </div>
   </div>
 </div>

@@ -1,32 +1,15 @@
-// function toggleEditMode() {
-//   const textarea = document.getElementById("rivescript");
-//   const button = document.getElementById("edit-save-btn");
-//   const form = document.getElementById("rivescript-form");
-
-//   if (textarea.disabled) {
-//     textarea.disabled = false;
-//     button.textContent = "Save";
-//     // button.type = "submit";
-//     button.classList.remove("btn-warning");
-//     button.classList.add("btn-primary");
-//   } else if (!textarea.disabled) {
-//     form.requestSubmit();
-//     textarea.disabled = true;
-//     button.textContent = "Edit";
-//     button.classList.remove("btn-primary");
-//     button.classList.add("btn-warning");
-//   }
-// }
+const rivescriptTextarea = document.getElementById("rivescript");
+const rivescriptForm = document.getElementById("rivescript-form");
+const saveScriptBtn = document.getElementById("save-script-btn");
+let isScriptDirty = false;
 
 // Fungsi validasi RiveScript
 function validateRiveScript(content) {
   const lines = content.split("\n");
-
   const validStarters = ["+", "-", "*", ">", "<", "!", "^", "%", "@"];
 
   let isValid = true;
   let errorMessage = "";
-
   let lastTriggerLine = -1;
   let hasResponseForTrigger = false;
 
@@ -35,11 +18,9 @@ function validateRiveScript(content) {
     const line = lineRaw.trim();
 
     if (line === "" || line.startsWith("//")) {
-      // Skip komentar/kosong
       continue;
     }
 
-    // Cek awalan valid
     const startsValid = validStarters.some((prefix) => line.startsWith(prefix));
     if (!startsValid) {
       isValid = false;
@@ -51,7 +32,6 @@ function validateRiveScript(content) {
       break;
     }
 
-    // Validasi tanda ' hanya boleh pada baris yang dimulai dengan -
     if (line.includes("'") && !line.startsWith("-")) {
       isValid = false;
       errorMessage = `Baris ${
@@ -60,7 +40,6 @@ function validateRiveScript(content) {
       break;
     }
 
-    // Track trigger dan respon
     if (line.startsWith("+")) {
       if (lastTriggerLine !== -1 && !hasResponseForTrigger) {
         isValid = false;
@@ -81,7 +60,6 @@ function validateRiveScript(content) {
     }
   }
 
-  // Cek trigger terakhir punya respon
   if (isValid && lastTriggerLine !== -1 && !hasResponseForTrigger) {
     isValid = false;
     errorMessage = `Baris ${
@@ -92,19 +70,16 @@ function validateRiveScript(content) {
   return { isValid, errorMessage };
 }
 
-// Fungsi untuk menampilkan modal error validasi
 function showModal(message) {
   const modalMessage = document.getElementById("rivescriptErrorMessage");
   if (!modalMessage) {
-    console.error("Modal element with id 'rivescriptErrorMessage' not found.");
-    alert(message); // fallback alert jika modal tidak ada
+    alert(message);
     return;
   }
-  modalMessage.textContent = message;
 
+  modalMessage.textContent = message;
   const modalElement = document.getElementById("rivescriptErrorModal");
   if (!modalElement) {
-    console.error("Modal element with id 'rivescriptErrorModal' not found.");
     alert(message);
     return;
   }
@@ -113,33 +88,57 @@ function showModal(message) {
   modal.show();
 }
 
-// Fungsi toggle edit/save dengan validasi
-function toggleEditMode() {
-  const textarea = document.getElementById("rivescript");
-  const button = document.getElementById("edit-save-btn");
-  const form = document.getElementById("rivescript-form");
+function updateSaveButtonState() {
+  if (!saveScriptBtn) {
+    return;
+  }
 
-  if (textarea.disabled) {
-    // Masuk mode edit
-    textarea.disabled = false;
-    button.textContent = "Save";
-    button.classList.remove("btn-warning");
-    button.classList.add("btn-primary");
-  } else {
-    // Mode save → validasi dulu
-    const content = textarea.value;
-    const validation = validateRiveScript(content);
+  saveScriptBtn.classList.toggle("btn-warning", isScriptDirty);
+  saveScriptBtn.classList.toggle("btn-light", !isScriptDirty);
+}
 
-    if (!validation.isValid) {
-      showModal(validation.errorMessage);
-      return;
+async function saveCurrentRiveScript() {
+  if (!rivescriptTextarea || !rivescriptForm) {
+    return false;
+  }
+
+  const content = rivescriptTextarea.value;
+  const validation = validateRiveScript(content);
+
+  if (!validation.isValid) {
+    showModal(validation.errorMessage);
+    return false;
+  }
+
+  const formData = new FormData();
+  formData.append("rivescript", content);
+
+  try {
+    const response = await fetch("/set-rivescript", {
+      method: "POST",
+      body: formData,
+    });
+    const payload = await response.json();
+
+    if (!response.ok || !payload.ok) {
+      showModal(payload.message || "Gagal menerapkan RiveScript.");
+      return false;
     }
 
-    // Jika valid, submit form dan kunci textarea
-    form.requestSubmit();
-    textarea.disabled = true;
-    button.textContent = "Edit";
-    button.classList.remove("btn-primary");
-    button.classList.add("btn-warning");
+    isScriptDirty = false;
+    updateSaveButtonState();
+    return true;
+  } catch (error) {
+    showModal("Gagal menghubungi server untuk menerapkan RiveScript.");
+    return false;
   }
 }
+
+if (rivescriptTextarea) {
+  rivescriptTextarea.addEventListener("input", () => {
+    isScriptDirty = true;
+    updateSaveButtonState();
+  });
+}
+
+updateSaveButtonState();

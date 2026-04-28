@@ -1,16 +1,27 @@
-<div class="card mb-2">
-    <div class="card-body">
-        <p><strong>You:</strong> {{ message }}</p>
-        <p><strong>Bot:</strong> {{ reply }}</p>
-        {% if audio_url %}
-        <audio class="w-100" controls autoplay>
-            <source src="{{ audio_url }}" type="audio/mpeg">
-            Your browser does not support the audio element.
-        </audio>
-        {% else %}
-        <div class="alert alert-warning mb-0 py-2" role="alert">
-            {{ audio_error or "Audio tidak tersedia untuk respons ini." }}
-        </div>
-        {% endif %}
+<div class="chat-response">
+  <div class="chat-card">
+    <div class="assistant-avatar assistant-avatar-sm">
+      <i class="bi bi-robot"></i>
     </div>
+    <div class="chat-bubble">
+      <div class="chat-role">You</div>
+      <p>{{ message }}</p>
+      <div class="chat-role mt-3">Learning Assistant</div>
+      <p>{{ reply }}</p>
+      {% if audio_url %}
+      <div class="chat-audio">
+        <audio controls autoplay>
+          <source src="{{ audio_url }}" type="audio/mpeg" />
+          Your browser does not support the audio element.
+        </audio>
+        <p class="chat-audio-note">Audio ini dihasilkan oleh AI.</p>
+      </div>
+      {% else %}
+      <div class="audio-warning">
+        <i class="bi bi-volume-mute"></i>
+        <span>{{ audio_error or "Audio tidak tersedia untuk respons ini." }}</span>
+      </div>
+      {% endif %}
+    </div>
+  </div>
 </div>
