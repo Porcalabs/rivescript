@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - Rivescript Learning Lab</title>
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/static/bootstrap-icons/bootstrap-icons.css" />
+    <link rel="stylesheet" href="/static/css/custom.css" />
+  </head>
+  <body class="auth-body">
+    <main class="auth-shell">
+      <section class="auth-card">
+        <div class="auth-brand">
+          <div class="brand-icon">
+            <i class="bi bi-shield-lock"></i>
+          </div>
+          <div>
+            <h1 class="auth-title">Login Mahasiswa</h1>
+            <p class="auth-subtitle">Masuk untuk melanjutkan progress belajar kamu.</p>
+          </div>
+        </div>
+
+        {% if error %}
+        <div class="alert alert-danger">{{ error }}</div>
+        {% endif %}
+
+        <form action="/login" method="post" class="auth-form">
+          <label class="auth-label" for="university_id">Universitas</label>
+          <select id="university_id" name="university_id" class="form-select auth-input" required>
+            <option value="">Pilih universitas</option>
+            {% for university in universities %}
+            <option
+              value="{{ university.university_id }}"
+              {% if form_data.university_id == university.university_id %}selected{% endif %}
+            >
+              {{ university.university_name }}
+            </option>
+            {% endfor %}
+          </select>
+
+          <label class="auth-label mt-3" for="nim">NIM</label>
+          <input
+            id="nim"
+            name="nim"
+            type="text"
+            class="form-control auth-input"
+            value="{{ form_data.nim if form_data else '' }}"
+            required
+          />
+
+          <label class="auth-label mt-3" for="password">Password</label>
+          <input
+            id="password"
+            name="password"
+            type="password"
+            class="form-control auth-input"
+            required
+          />
+
+          <button type="submit" class="btn btn-primary auth-submit mt-4">Login</button>
+        </form>
+
+        <p class="auth-switch">
+          Belum punya akun?
+          <a href="/register">Daftar di sini</a>
+        </p>
+      </section>
+    </main>
+  </body>
+</html>

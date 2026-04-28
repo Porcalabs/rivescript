@@ -308,6 +308,46 @@ body {
   gap: 12px;
 }
 
+.user-pill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border: 1px solid var(--border-soft);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.user-pill-avatar {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #3366ff, #4d89ff);
+  color: #fff;
+  font-weight: 700;
+}
+
+.user-pill-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+}
+
+.user-pill-text strong {
+  font-size: 0.92rem;
+}
+
+.user-pill-text span {
+  color: var(--text-muted);
+  font-size: 0.78rem;
+}
+
+.logout-form {
+  margin: 0;
+}
+
 .action-btn {
   min-height: 44px;
   display: inline-flex;
@@ -693,6 +733,93 @@ body {
 
 .guide-list {
   padding-left: 18px;
+}
+
+.auth-body {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(85, 136, 255, 0.22), transparent 24%),
+    linear-gradient(180deg, #f6f9ff 0%, #ebf1fb 100%);
+  overflow: auto;
+}
+
+.auth-shell {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 32px 16px;
+}
+
+.auth-card {
+  width: min(100%, 480px);
+  padding: 28px;
+  border: 1px solid var(--border-soft);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: var(--shadow-soft);
+}
+
+.auth-card-wide {
+  width: min(100%, 560px);
+}
+
+.auth-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.auth-title {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.auth-subtitle {
+  margin: 4px 0 0;
+  color: var(--text-muted);
+}
+
+.auth-form {
+  display: block;
+}
+
+.auth-label {
+  display: inline-block;
+  margin-bottom: 6px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.auth-input {
+  min-height: 48px;
+  border-radius: 14px;
+  border-color: var(--border-soft);
+  background: #f8fbff;
+}
+
+.auth-submit {
+  width: 100%;
+  min-height: 48px;
+  border: none;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #3567ff, #2554e8);
+  box-shadow: 0 14px 28px rgba(53, 103, 255, 0.28);
+}
+
+.auth-switch {
+  margin: 18px 0 0;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.auth-switch a {
+  color: #2554e8;
+  font-weight: 600;
+  text-decoration: none;
 }
 
 @media (max-width: 1200px) {

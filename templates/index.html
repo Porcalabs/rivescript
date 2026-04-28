@@ -47,6 +47,15 @@
           </div>
 
           <div class="topbar-actions">
+            <div class="user-pill">
+              <div class="user-pill-avatar">
+                {{ current_user.full_name[:1] if current_user and current_user.full_name else "U" }}
+              </div>
+              <div class="user-pill-text">
+                <strong>{{ current_user.full_name if current_user else "User" }}</strong>
+                <span>{{ current_university_name if current_university_name else "" }}</span>
+              </div>
+            </div>
             <button
               class="btn action-btn btn-light"
               type="button"
@@ -74,6 +83,12 @@
               <i class="bi bi-play-fill"></i>
               <span>Run Script</span>
             </button>
+            <form action="/logout" method="post" class="logout-form">
+              <button class="btn action-btn btn-light" type="submit">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Logout</span>
+              </button>
+            </form>
           </div>
         </header>
 

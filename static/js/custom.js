@@ -4,7 +4,6 @@ const chatBox = document.getElementById("chat-box");
 const curriculumModules = Array.from(document.querySelectorAll(".curriculum-module"));
 const progressValue = document.getElementById("progress-value");
 const progressLabel = document.getElementById("progress-label");
-const curriculumStorageKey = "rivescript-curriculum-progress";
 
 function updateLineNumbers() {
   const lines = textarea.value.split("\n").length;
@@ -46,18 +45,6 @@ if (chatBox) {
   scrollChatToBottom();
 }
 
-function loadCurriculumProgress() {
-  try {
-    return JSON.parse(localStorage.getItem(curriculumStorageKey) || "{}");
-  } catch (error) {
-    return {};
-  }
-}
-
-function saveCurriculumProgress(progress) {
-  localStorage.setItem(curriculumStorageKey, JSON.stringify(progress));
-}
-
 function updateProgressUi() {
   if (!curriculumModules.length || !progressValue || !progressLabel) {
     return;
@@ -81,18 +68,19 @@ async function copyTemplateToClipboard(moduleElement) {
 
   const templateText = templateElement.innerText.trim();
 
+  if (textarea) {
+    textarea.value = templateText;
+    textarea.dispatchEvent(new Event("input"));
+    textarea.focus();
+  }
+
   try {
     await navigator.clipboard.writeText(templateText);
-    copyButton.textContent = "Copied";
+    copyButton.textContent = "Copied to Editor";
     setTimeout(() => {
       copyButton.textContent = "Copy";
     }, 1200);
   } catch (error) {
-    if (textarea) {
-      textarea.value = templateText;
-      textarea.dispatchEvent(new Event("input"));
-      textarea.focus();
-    }
     copyButton.textContent = "Inserted";
     setTimeout(() => {
       copyButton.textContent = "Copy";
@@ -100,15 +88,34 @@ async function copyTemplateToClipboard(moduleElement) {
   }
 }
 
-function toggleModuleDone(moduleElement) {
-  const progress = loadCurriculumProgress();
+async function toggleModuleDone(moduleElement) {
   const moduleId = moduleElement.dataset.moduleId;
+  const unitName = moduleElement.dataset.unitName || moduleId;
   const doneButton = moduleElement.querySelector(".curriculum-done-btn");
   const isDone = !moduleElement.classList.contains("curriculum-module-done");
+  const status = isDone ? "done" : "in_progress";
+
+  try {
+    const formData = new FormData();
+    formData.append("unit_id", moduleId);
+    formData.append("unit_name", unitName);
+    formData.append("status", status);
+
+    const response = await fetch("/progress", {
+      method: "POST",
+      body: formData,
+    });
+    const payload = await response.json();
+
+    if (!response.ok || !payload.ok) {
+      throw new Error(payload.message || "Gagal menyimpan progress.");
+    }
+  } catch (error) {
+    alert("Gagal menyimpan progress ke server.");
+    return;
+  }
 
   moduleElement.classList.toggle("curriculum-module-done", isDone);
-  progress[moduleId] = isDone;
-  saveCurriculumProgress(progress);
 
   if (doneButton) {
     doneButton.textContent = isDone ? "Done" : "Mark Done";
@@ -138,15 +145,28 @@ curriculumModules.forEach((moduleElement) => {
   }
 });
 
-const savedProgress = loadCurriculumProgress();
-curriculumModules.forEach((moduleElement) => {
-  const isDone = Boolean(savedProgress[moduleElement.dataset.moduleId]);
-  const doneButton = moduleElement.querySelector(".curriculum-done-btn");
-  moduleElement.classList.toggle("curriculum-module-done", isDone);
+async function loadServerProgress() {
+  try {
+    const response = await fetch("/progress");
+    const payload = await response.json();
+    if (!response.ok || !payload.ok) {
+      return;
+    }
 
-  if (doneButton) {
-    doneButton.textContent = isDone ? "Done" : "Mark Done";
+    curriculumModules.forEach((moduleElement) => {
+      const doneButton = moduleElement.querySelector(".curriculum-done-btn");
+      const status = payload.progress[moduleElement.dataset.moduleId];
+      const isDone = status === "done";
+      moduleElement.classList.toggle("curriculum-module-done", isDone);
+
+      if (doneButton) {
+        doneButton.textContent = isDone ? "Done" : "Mark Done";
+      }
+    });
+    updateProgressUi();
+  } catch (error) {
+    console.error("Failed to load progress", error);
   }
-});
+}
 
-updateProgressUi();
+loadServerProgress();
